@@ -15,8 +15,14 @@ go install
 
 ./api
 
+第三方框架说明
+HttpRouter是一种轻质高性能的HTTP请求路由器（也称为多路转换器或只是多路复用器用于短
 
+go get github.com/julienschmidt/httprouter
 
+持久层连接
+
+go get github.com/go-sql-driver/mysql
 
 
 
