@@ -38,5 +38,7 @@ func RegisterHandlers() *httprouter.Router {
 
 	router.POST("/upload/:video_id", uploadHandler)
 
+	router.GET("/upload/form", skipToUpLoadPageHandler)
+
 	return router
 }
