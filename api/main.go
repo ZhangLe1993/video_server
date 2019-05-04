@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-//     Workspace/Go/src/com.biubiu/soup/video_server
+//     Workspace/Go/src/video_server
 //     Workspace/Go/bin
 
 type middleWareHandler struct {

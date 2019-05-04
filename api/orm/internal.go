@@ -2,6 +2,7 @@ package orm
 
 import (
 	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
 	"strconv"
 	"sync"
 	"video_server/api/defs"
