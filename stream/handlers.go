@@ -1,12 +1,16 @@
 package main
 
 import (
+	"crypto/md5"
+	"fmt"
 	"github.com/julienschmidt/httprouter"
+	"html/template"
 	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -36,8 +40,8 @@ func uploadHandler(writer http.ResponseWriter, request *http.Request, params htt
 	//获取文件
 	file, _, err := request.FormFile("file")
 	if err != nil {
-		log.Printf("Read file error : %v", err)
-		sendErrorResponse(writer, http.StatusInternalServerError, "服务异常")
+		log.Printf("Parse Request File Error : %v", err)
+		sendErrorResponse(writer, http.StatusInternalServerError, "Parse Request File Error")
 		return
 	}
 	//accept := "video/*"
@@ -58,4 +62,19 @@ func uploadHandler(writer http.ResponseWriter, request *http.Request, params htt
 	}
 	writer.WriteHeader(http.StatusCreated)
 	io.WriteString(writer, "Upload Successfully")
+}
+
+func skipToUpLoadPageHandler(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
+
+	currentTime := time.Now().Unix()
+	hour := md5.New()
+	io.WriteString(hour, strconv.FormatInt(currentTime, 10))
+
+	//生成token
+	token := fmt.Sprintf("%s", hour.Sum(nil))
+
+	//渲染页面
+	framework, _ := template.ParseFiles("./videos/upload.html")
+
+	framework.Execute(writer, token)
 }
